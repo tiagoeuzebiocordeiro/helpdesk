@@ -1,5 +1,6 @@
 package com.tiago.helpdesk.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class TecnicoService {
 		 * no banco.*/
 		Optional<Tecnico> obj = tecnicoRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado. ID: " + id)); // Exceção arrow function
+	}
+	
+	public List<Tecnico> findAll() {
+		return tecnicoRepository.findAll();
 	}
 	
 }
