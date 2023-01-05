@@ -28,8 +28,12 @@ public class TecnicoService {
 		return tecnicoRepository.findAll();
 	}
 
-	public Tecnico create(TecnicoDTO obj) {
-		return null;
+
+	public Tecnico create(TecnicoDTO objDTO) {
+		objDTO.setId(null);
+		Tecnico newObj = new Tecnico(objDTO);
+		return tecnicoRepository.save(newObj);
 	}
+
 	
 }
