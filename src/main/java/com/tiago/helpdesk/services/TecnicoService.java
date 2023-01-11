@@ -14,6 +14,8 @@ import com.tiago.helpdesk.repositories.TecnicoRepository;
 import com.tiago.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.tiago.helpdesk.services.exceptions.ObjectNotFoundException;
 
+import jakarta.validation.Valid;
+
 @Service
 public class TecnicoService {
 
@@ -42,6 +44,16 @@ public class TecnicoService {
 		return tecnicoRepository.save(newObj);
 	}
 
+	public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
+		objDTO.setId(id); // Evitar falha de segurança
+		
+		Tecnico oldOBJ = findById(id);
+		validarPorCpfEEmail(objDTO);
+		oldOBJ = new Tecnico(objDTO);
+		return tecnicoRepository.save(oldOBJ);
+		
+	}
+	
 	private void validarPorCpfEEmail(TecnicoDTO objDTO) {
 		Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
 		if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
