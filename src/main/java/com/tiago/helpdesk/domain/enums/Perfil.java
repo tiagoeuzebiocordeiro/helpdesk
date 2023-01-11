@@ -9,7 +9,7 @@ public enum Perfil {
 	 * ADMIN, no sistema as roles antigas são (ADMIN, CLIENTE, TECNICO) e ficaria
 	 * (ADMIN, GESTOR, CLIENTE TECNICO). Como não estava identificada a posição da role antes
 	 * a pessoa que fosse cadastrada como CLIENTE (posição 1) do sistema, ficaria
-	 * como GESTOR. Pois a nova ordem seria: ADMIN (0), GESTOR(1), CLIENTE(2) TECNICO(3).
+	 * como GESTOR. Pois a nova ordem seria: ADMIN (0), GESTOR(1), CLIENTE(2) TECNICO(3).en
 	 * Por isso é importante deixar no código uma posição já padronizada, para evitar esses problemas.
 	 * */
 	
