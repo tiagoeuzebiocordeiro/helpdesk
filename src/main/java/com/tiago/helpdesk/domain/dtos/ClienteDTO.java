@@ -7,45 +7,47 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.tiago.helpdesk.domain.Tecnico;
+import com.tiago.helpdesk.domain.Cliente;
 import com.tiago.helpdesk.domain.enums.Perfil;
 
 import jakarta.validation.constraints.NotNull;
 
-public class TecnicoDTO implements Serializable {
+public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	/*Id não é requirido pois o sistema gera devido ao GeneratedValue Identity*/
 	protected Integer id;
-	@NotNull(message = "O campo NOME é requerido!")
+	@NotNull(message = "O campo NOME é requerido")
 	protected String nome;
-	@NotNull(message = "O campo CPF é requerido!")
+	@NotNull(message = "O campo CPF é requerido")
 	protected String cpf;
-	@NotNull(message = "O campo EMAIL é requerido!")
+	@NotNull(message = "O campo EMAIL é requerido")
 	protected String email;
-	@NotNull(message = "O campo SENHA é requerido!")
+	@NotNull(message = "O campo SENHA é requerido")
 	protected String senha;
 	protected Set<Integer> perfis = new HashSet<>();
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
 	
-	public TecnicoDTO() {
+	public ClienteDTO() {
 		super();
 		addPerfis(Perfil.CLIENTE);
-		
 	}
+
 	
-	public TecnicoDTO(Tecnico obj) {
+	
+	public ClienteDTO(Cliente obj) {
 		super();
 		this.id = obj.getId();
 		this.nome = obj.getNome();
 		this.cpf = obj.getCpf();
 		this.email = obj.getEmail();
 		this.senha = obj.getSenha();
-		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet()); // Convertendo o obj para lista set
+		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.dataCriacao = obj.getDataCriacao();
 		addPerfis(Perfil.CLIENTE);
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -102,5 +104,5 @@ public class TecnicoDTO implements Serializable {
 	public void setDataCriacao(LocalDate dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-
+	
 }
