@@ -3,6 +3,7 @@ package com.tiago.helpdesk.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tiago.helpdesk.domain.enums.Perfil;
 
 import jakarta.persistence.Entity;
@@ -13,6 +14,7 @@ public class Tecnico extends Pessoa {
 	private static final long serialVersionUID = 1L;
 	
 	@OneToMany(mappedBy = "tecnico")
+	@JsonIgnore
 	private List<Chamado> chamados = new ArrayList<>();
 
 	public Tecnico() {
