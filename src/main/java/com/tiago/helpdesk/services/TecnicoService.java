@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tiago.helpdesk.domain.Tecnico;
+import com.tiago.helpdesk.domain.dtos.TecnicoDTO;
 import com.tiago.helpdesk.repositories.TecnicoRepository;
 
 @Service
@@ -23,6 +24,12 @@ public class TecnicoService {
 	public List<Tecnico> findAll() {
 		
 		return tecnicoRepository.findAll();
+	}
+
+	public Tecnico create(TecnicoDTO objDTO) {
+		objDTO.setId(null); // CREATE (id null) -> async
+		Tecnico newObj = new Tecnico(objDTO);
+		return tecnicoRepository.save(newObj);
 	}
 	
 }
