@@ -11,6 +11,7 @@ import com.tiago.helpdesk.domain.Tecnico;
 import com.tiago.helpdesk.domain.dtos.TecnicoDTO;
 import com.tiago.helpdesk.repositories.PessoaRepository;
 import com.tiago.helpdesk.repositories.TecnicoRepository;
+import com.tiago.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.tiago.helpdesk.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -32,7 +33,7 @@ public class TecnicoService {
 	}
 
 	public Tecnico create(TecnicoDTO objDTO) {
-		objDTO.setId(null); // CREATE (id null) -> async
+		objDTO.setId(null); // CREATE (id null) -> async (evitar confusao create x update no db)
 		validarPorCpfEEmail(objDTO);
 		Tecnico newObj = new Tecnico(objDTO);
 		return tecnicoRepository.save(newObj);
@@ -41,8 +42,14 @@ public class TecnicoService {
 	private void validarPorCpfEEmail(TecnicoDTO objDTO) {
 		Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
 		if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
-			
+			throw new DataIntegrityViolationException("CPF já cadastrado no sistema!");
 		}
+		
+		obj = pessoaRepository.findByEmail(objDTO.getEmail());
+		if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
+		}
+		
 	}
 	
 	 
