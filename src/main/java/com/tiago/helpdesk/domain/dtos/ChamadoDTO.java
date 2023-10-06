@@ -2,10 +2,10 @@ package com.tiago.helpdesk.domain.dtos;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tiago.helpdesk.domain.Chamado;
-
-import jakarta.validation.constraints.NotNull;
 
 public class ChamadoDTO {
 
